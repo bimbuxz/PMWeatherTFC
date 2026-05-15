@@ -3,13 +3,13 @@ package com.green_skeleton.pmweather_tfc.mixin;
 import dev.protomanly.pmweather.seasons.SeasonHandler;
 import net.dries007.tfc.util.calendar.Calendars;
 import net.dries007.tfc.util.calendar.ICalendar;
+import net.dries007.tfc.util.calendar.Month;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
 
 @Mixin(SeasonHandler.class)
 public class SeasonHandlerMixin
@@ -35,7 +35,12 @@ public class SeasonHandlerMixin
     {
         ICalendar calendar = Calendars.get(level);
 
-        cir.setReturnValue(calendar.getCalendarMonthOfYear().ordinal() + 1);
+        Month month = ICalendar.getMonthOfYear(
+            calendar.getCalendarTicks(),
+            calendar.getCalendarDaysInMonth()
+        );
+
+        cir.setReturnValue(month.ordinal() + 1);
     }
 
     @Inject(method = "getYear", at = @At("HEAD"), cancellable = true, remap = false)
@@ -43,20 +48,9 @@ public class SeasonHandlerMixin
     {
         ICalendar calendar = Calendars.get(level);
 
-        int year = (int) (calendar.getTotalCalendarYears() - 1000);
+        int year = (int) (calendar.getCalendarYear() - 1000);
 
         cir.setReturnValue(Math.max(0, year));
-    }
-
-    @Inject(method = "getSmoothedMonthTime", at = @At("HEAD"), cancellable = true, remap = false)
-    private static void tfcpmweather$getSmoothedMonthTime(Level level, CallbackInfoReturnable<Float> cir)
-    {
-        ICalendar calendar = Calendars.get(level);
-
-        float month = calendar.getCalendarMonthOfYear().ordinal();
-        float monthFraction = calendar.getCalendarFractionOfMonth();
-
-        cir.setReturnValue(month + monthFraction + 1.0F);
     }
 
     @Inject(method = "getSeasonEffectSine", at = @At("HEAD"), cancellable = true, remap = false)

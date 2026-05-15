@@ -2,7 +2,6 @@ package com.green_skeleton.pmweather_tfc.mixin;
 
 import dev.protomanly.pmweather.block.PMWFireBlock;
 import net.dries007.tfc.common.TFCTags;
-import net.dries007.tfc.common.blocks.TFCBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;

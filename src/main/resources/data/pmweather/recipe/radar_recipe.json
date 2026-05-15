@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "CRC",
+    "ITI",
+    "IGI"
+  ],
+  "key": {
+    "I": {
+      "item": "tfc:metal/sheet/wrought_iron"
+    },
+    "T": {
+      "item": "pmweather:wsr88d_core"
+    },
+    "C": {
+      "item": "tfc:metal/ingot/copper"
+    },
+    "G": {
+      "item": "tfc:brass_mechanisms"
+    },
+    "R": {
+      "item": "minecraft:glass_pane"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "pmweather:radar"
+  }
+}

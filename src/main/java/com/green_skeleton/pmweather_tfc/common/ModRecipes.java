@@ -1,22 +1,24 @@
 package com.green_skeleton.pmweather_tfc.common;
 
 import com.green_skeleton.pmweather_tfc.PMWeatherTFC;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ModRecipes
 {
-    public static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS =
+    public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS =
         DeferredRegister.create(
-            ForgeRegistries.RECIPE_SERIALIZERS,
+            BuiltInRegistries.RECIPE_SERIALIZER,
             PMWeatherTFC.MOD_ID
         );
 
-    public static final RegistryObject<RecipeSerializer<?>>
-        EXTINGUISHER_REFILL_SERIALIZER =
-        SERIALIZERS.register(
+    public static final DeferredHolder<
+        RecipeSerializer<?>,
+        ExtinguisherRefillSerializer
+        > EXTINGUISHER_REFILL_SERIALIZER =
+        RECIPE_SERIALIZERS.register(
             "extinguisher_refill",
             ExtinguisherRefillSerializer::new
         );

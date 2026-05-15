@@ -1,32 +1,32 @@
 package com.green_skeleton.pmweather_tfc.common;
 
 import dev.protomanly.pmweather.item.ModItems;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.capabilities.Capabilities;
 
 public class ExtinguisherRefillRecipe extends CustomRecipe
 {
-    public ExtinguisherRefillRecipe(ResourceLocation id, CraftingBookCategory category)
+    public ExtinguisherRefillRecipe(CraftingBookCategory category)
     {
-        super(id, category);
+        super(category);
     }
 
     @Override
-    public boolean matches(CraftingContainer inv, Level level)
+    public boolean matches(CraftingInput input, Level level)
     {
         boolean foundBucket = false;
         boolean foundExtinguisher = false;
 
-        for (int i = 0; i < inv.getContainerSize(); i++)
+        for (int i = 0; i < input.size(); i++)
         {
-            ItemStack stack = inv.getItem(i);
+            ItemStack stack = input.getItem(i);
 
             if (stack.isEmpty())
                 continue;
@@ -56,35 +56,32 @@ public class ExtinguisherRefillRecipe extends CustomRecipe
         return foundBucket && foundExtinguisher;
     }
 
+
+    private static final ResourceLocation LIMEWATER =
+        ResourceLocation.parse("tfc:limewater");
+
     private boolean isLimewaterBucket(ItemStack stack)
     {
-        String itemId = stack.getItemHolder()
-            .unwrapKey()
-            .get()
-            .location()
-            .toString();
-
-        if (!itemId.contains("bucket"))
+        if (stack.isEmpty())
             return false;
 
-        CompoundTag tag = stack.getTag();
+        var handler = stack.getCapability(Capabilities.FluidHandler.ITEM);
 
-        if (tag == null || !tag.contains("fluid"))
+        if (handler == null)
             return false;
 
-        CompoundTag fluid = tag.getCompound("fluid");
+        var fluid = handler.getFluidInTank(0);
 
-        String fluidName = fluid.getString("FluidName");
-
-        return fluidName.equals("tfc:limewater");
+        return !fluid.isEmpty()
+            && fluid.getFluid().builtInRegistryHolder().key().location().equals(LIMEWATER);
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer inv, RegistryAccess access)
+    public ItemStack assemble(CraftingInput input, HolderLookup.Provider provider)
     {
-        for (int i = 0; i < inv.getContainerSize(); i++)
+        for (int i = 0; i < input.size(); i++)
         {
-            ItemStack stack = inv.getItem(i);
+            ItemStack stack = input.getItem(i);
 
             if (stack.is(ModItems.FIRE_EXTINGUISHER.get()))
             {

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "NGN",
+    " I ",
+    " I "
+  ],
+  "key": {
+    "I": {
+      "item": "tfc:metal/rod/wrought_iron"
+    },
+    "N": {
+      "item": "tfc:metal/sheet/wrought_iron"
+    },
+    "G": {
+      "item": "tfc:brass_mechanisms"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "pmweather:anemometer"
+  }
+}

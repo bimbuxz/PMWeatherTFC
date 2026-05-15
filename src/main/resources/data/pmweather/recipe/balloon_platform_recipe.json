@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "BBB",
+    "RCR",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "tfc:metal/ingot/copper"
+    },
+    "B": {
+      "tag": "c:stones/smooth"
+    },
+    "R": {
+      "item": "tfc:brass_mechanisms"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "pmweather:balloon_platform"
+  }
+}

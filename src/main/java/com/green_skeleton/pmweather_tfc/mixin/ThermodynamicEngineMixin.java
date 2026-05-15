@@ -3,6 +3,8 @@ package com.green_skeleton.pmweather_tfc.mixin;
 import dev.protomanly.pmweather.block.entity.RadarBlockEntity;
 import dev.protomanly.pmweather.weather.ThermodynamicEngine;
 import dev.protomanly.pmweather.weather.WeatherHandler;
+import net.dries007.tfc.util.calendar.Calendars;
+import net.dries007.tfc.util.calendar.ICalendar;
 import net.dries007.tfc.util.climate.Climate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
@@ -33,13 +35,20 @@ public class ThermodynamicEngineMixin {
 
         ThermodynamicEngine.AtmosphericDataPoint original = cir.getReturnValue();
 
-        float tfcTemp = Climate.getTemperature(level, new BlockPos((int)pos.x, (int)pos.y, (int)pos.z));
-        float tfcRain = Climate.getRainfall(level, new BlockPos((int)pos.x, (int)pos.y, (int)pos.z));
+        BlockPos bp = new BlockPos((int) pos.x, (int) pos.y, (int) pos.z);
+
+        ICalendar calendar = Calendars.get(level);
+
+        float tfcTemp = Climate.getInstantTemperature(level, bp, calendar);
+
+        float tfcRain = Climate.get(level)
+            .getAverageRainfall(level, bp);
 
         float pmwPressure = original.pressure();
         float pmwNoise = original.virtualTemperature() - original.temperature();
 
         float tempNoise = pmwNoise * 0.2F;
+
         float temperature = tfcTemp + tempNoise;
 
         float humidityApprox = Mth.clamp(tfcRain / 900F, 0F, 1F);
@@ -62,7 +71,11 @@ public class ThermodynamicEngineMixin {
 
         float pressure = pmwPressure;
 
-        float virtualTemp = ThermodynamicEngine.calcVTemp(temperature, dew, pressure);
+        float virtualTemp = ThermodynamicEngine.calcVTemp(
+            temperature,
+            dew,
+            pressure
+        );
 
         ThermodynamicEngine.AtmosphericDataPoint rebuilt =
             new ThermodynamicEngine.AtmosphericDataPoint(
