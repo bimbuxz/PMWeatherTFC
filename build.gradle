@@ -27,6 +27,10 @@ repositories {
         url = 'https://repo.spongepowered.org/repository/maven-public/'
     }
 
+        maven {
+        url = "https://api.modrinth.com/maven"
+    }
+
     flatDir {
         dirs 'libs'
     }
@@ -38,8 +42,8 @@ neoForge {
 
 dependencies {
 
-    implementation files('libs/pmweather-0.16.4-1.21.1-alpha.jar')
-    implementation files('libs/TerraFirmaCraft-NeoForge-1.21.1-4.1.1.jar')
+    implementation "maven.modrinth:protomanlys-weather:0.16.4-alpha"
+    implementation "maven.modrinth:terrafirmacraft:4.1.2"
 
     implementation "org.spongepowered:mixin:0.8.5"
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
