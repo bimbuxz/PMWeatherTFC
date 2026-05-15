@@ -1,0 +1,41 @@
+modLoader="javafml"
+loaderVersion="(17,)"
+license="All Rights Reserved"
+mixins=[
+    "pmweather_tfc.mixins.json"
+]
+
+[[mods]]
+modId="pmweather_tfc"
+version="1.0.0"
+displayName="PMWeather+TFC"
+authors="GreeN_SkeletoN"
+description="Synchronizes TerraFirmaCraft climate, seasons, calendar and wind systems with PM's Weather."
+
+[[dependencies.pmweather_tfc]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1]"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.pmweather_tfc]]
+modId="forge"
+mandatory=true
+versionRange="[47,]"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.pmweather_tfc]]
+modId="tfc"
+mandatory=true
+versionRange="[3.2.15,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.pmweather_tfc]]
+modId="pmweather"
+mandatory=false
+versionRange="[0.16.4,)"
+ordering="AFTER"
+side="BOTH"

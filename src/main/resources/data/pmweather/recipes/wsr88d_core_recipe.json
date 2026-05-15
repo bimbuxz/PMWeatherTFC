@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "I  ",
+    "AIT",
+    "I I"
+  ],
+  "key": {
+    "I": {
+      "item": "tfc:metal/sheet/wrought_iron"
+    },
+    "T": {
+      "item": "pmweather:tornado_sensor"
+    },
+    "A": {
+      "item": "tfc:brass_mechanisms"
+    }
+  },
+  "result": {
+    "count": 1,
+    "item": "pmweather:wsr88d_core"
+  }
+}

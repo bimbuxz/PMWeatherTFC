@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": {
+      "item": "tfc:metal/sheet/wrought_iron"
+    },
+    "L": {
+      "item": "minecraft:lever"
+    },
+    "R": {
+      "item": "minecraft:red_dye"
+    },
+    "W": {
+      "tag": "tfc:buckets"
+    },
+     "B":{
+         "item":"tfc:brass_mechanisms"
+     }
+  },
+  "pattern": [
+    "BIL",
+    "IWI",
+    " IR"
+  ],
+  "result": {
+    "count": 1,
+    "item": "pmweather:fire_extinguisher",
+      "nbt": "{Damage:399}"
+  }
+}
