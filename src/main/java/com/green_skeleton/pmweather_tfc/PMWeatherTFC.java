@@ -21,5 +21,4 @@ public class PMWeatherTFC {
 
         ModRecipes.SERIALIZERS.register(bus);
     }
-        // Здесь будет инициализация моста, конфигов и т.д.
-    }
+}
